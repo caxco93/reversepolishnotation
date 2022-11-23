@@ -1,7 +1,7 @@
 import { expect, test } from "vitest";
 import reversePolishNotation, {
   RPNExpression,
-} from "../lib/reversePolishNotation";
+} from "@/lib/reversePolishNotation";
 
 // Edit an assertion and save to see HMR in action
 
