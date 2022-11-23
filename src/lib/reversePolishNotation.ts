@@ -1,4 +1,4 @@
-type Operator = "+" | "-" | "*" | "/" | "^";
+export type Operator = "+" | "-" | "*" | "/" | "^";
 type Operation = (a: number, b: number) => number;
 export type RPNElement = number | Operator;
 export type RPNExpression = Array<RPNElement>;
