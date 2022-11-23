@@ -1,5 +1,5 @@
 type Operator = "+" | "-" | "*" | "/" | "^";
-type RPNElement = number | Operator;
+export type RPNElement = number | Operator;
 export type RPNExpression = Array<RPNElement>;
 type RPNSteps = Array<Array<number>>;
 
