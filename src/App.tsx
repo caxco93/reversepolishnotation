@@ -26,8 +26,8 @@ function App() {
     <div className="App">
       <h1>Reverse Polish Notation</h1>
       <input onChange={inputChange} />
-      {rpnSteps.map((step) => (
-        <div>{step.join("  ")}</div>
+      {rpnSteps.map((step, i) => (
+        <div key={i}>{step.join(" ")}</div>
       ))}
     </div>
   );
