@@ -2,7 +2,7 @@ export type Operator = "+" | "-" | "*" | "/" | "^";
 type Operation = (a: number, b: number) => number;
 export type RPNElement = number | Operator;
 export type RPNExpression = Array<RPNElement>;
-type RPNSteps = Array<Array<number>>;
+export type RPNSteps = Array<Array<number>>;
 
 export const isOperator = (element: RPNElement): element is Operator => {
   return (element as Operator).length !== undefined;
@@ -35,4 +35,16 @@ const reversePolishNotation = (input: RPNExpression): RPNSteps => {
   });
   return result;
 };
+
+export const parseRPNExpression = (input: string): RPNExpression => {
+  return input.split(" ").map((element) => {
+    const number = parseFloat(element);
+    if (isNaN(number)) {
+      return element as Operator;
+    } else {
+      return number;
+    }
+  });
+};
+
 export default reversePolishNotation;
