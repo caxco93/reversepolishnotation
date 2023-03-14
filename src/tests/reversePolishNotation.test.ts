@@ -9,7 +9,7 @@ describe("Reverse Polish Notation", () => {
   it("handles simple expressions", () => {
     const input: RPNExpression = [2, 2, "+"];
     const output = reversePolishNotation(input);
-    const expected = [[2], [2, 2], [4]];
+    const expected = [[2], [2, 2], [2, 2, "+"], [4]];
     expect(output).toEqual(expected);
   });
   it("handles complex expressions", () => {
@@ -18,14 +18,19 @@ describe("Reverse Polish Notation", () => {
     const expected = [
       [2],
       [2, 5],
+      [2, 5, "*"],
       [10],
       [10, 6],
+      [10, 6, "+"],
       [16],
       [16, 3],
       [16, 3, 2],
+      [16, 3, 2, "^"],
       [16, 9],
       [16, 9, 1],
+      [16, 9, 1, "-"],
       [16, 8],
+      [16, 8, "/"],
       [2],
     ];
     expect(output).toEqual(expected);
@@ -34,6 +39,6 @@ describe("Reverse Polish Notation", () => {
     const input: RPNExpression = [2, 2, "+", "*"];
     expect(() => {
       reversePolishNotation(input);
-    }).toThrowError("Insufficient operands in expression");
+    }).toThrowError(`Insufficient operands for the "*" operator at index 3`);
   });
 });

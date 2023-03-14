@@ -26,7 +26,7 @@ const reversePolishNotation = (input: RPNExpression): RPNSteps => {
       const a = stack.pop();
       if (a === undefined || b === undefined) {
         throw new Error(
-          `Insufficient operands for the "${element}" operator at position ${i}`
+          `Insufficient operands for the "${element}" operator at index ${i}`
         );
       }
       const c = operations[element](a, b);
