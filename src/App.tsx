@@ -1,17 +1,11 @@
-import { ChangeEvent, useState } from "react";
+import React, { ChangeEvent, useState } from "react";
 import "./App.css";
-import reversePolishNotation, {
-  Operator,
-  RPNExpression,
-  RPNSteps,
-  parseRPNExpression,
-} from "@/lib/reversePolishNotation";
+import { RPNExpression, parseRPNExpression } from "@/lib/reversePolishNotation";
 import { rpnValidations } from "./lib/rpnValidations";
 import RPNPresentation from "./components/RPNPresentation";
 
-const sanitize = (input: string): string => {
-  return input.replace(/ +/g, " ").replace(/[^0-9\-+/* ^]/g, "");
-};
+const sanitize = (input: string): string =>
+  input.replace(/ +/g, " ").replace(/[^0-9\-+/* ^]/g, "");
 
 function App() {
   const [rpnInput, setRpnInput] = useState("");
@@ -37,13 +31,14 @@ function App() {
   return (
     <div className="App">
       <h1>Reverse Polish Notation</h1>
-      <input value={rpnInput} onChange={inputChange} autoFocus={true} />
+      <input value={rpnInput} onChange={inputChange} />
       {errors.map((error, i) => (
+        // eslint-disable-next-line react/no-array-index-key
         <p key={i} className="error">
           {error.message}
         </p>
       ))}
-      <RPNPresentation rpnExpression={rpnExpression}></RPNPresentation>
+      <RPNPresentation rpnExpression={rpnExpression} />
     </div>
   );
 }

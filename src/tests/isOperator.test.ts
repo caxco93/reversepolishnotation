@@ -1,5 +1,5 @@
-import { isOperator, RPNElement } from "@/lib/reversePolishNotation";
 import { describe, it, expect } from "vitest";
+import { isOperator, RPNElement } from "@/lib/reversePolishNotation";
 
 describe("isOperator", () => {
   it("returns true for operator characters", () => {
