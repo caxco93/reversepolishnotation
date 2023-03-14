@@ -19,12 +19,14 @@ const operations: Record<Operator, Operation> = {
 const reversePolishNotation = (input: RPNExpression): RPNSteps => {
   const result: RPNSteps = [];
   const stack: number[] = [];
-  input.forEach((element) => {
+  input.forEach((element, i) => {
     if (isOperator(element)) {
       const b = stack.pop();
       const a = stack.pop();
       if (a === undefined || b === undefined) {
-        throw new Error("Insufficient operands in expression");
+        throw new Error(
+          `Insufficient operands for the "${element}" operator at position ${i}`
+        );
       }
       const c = operations[element](a, b);
       stack.push(c);

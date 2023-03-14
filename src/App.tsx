@@ -8,6 +8,10 @@ import reversePolishNotation, {
 } from "@/lib/reversePolishNotation";
 import { rpnValidations } from "./lib/rpnValidations";
 
+const sanitize = (input: string): string => {
+  return input.replace(/ +/g, " ");
+};
+
 function App() {
   const [rpnInput, setRpnInput] = useState("");
   const [rpnExpression, setRpnExpression] = useState<RPNExpression>([]);
@@ -17,13 +21,15 @@ function App() {
   rpnSteps = reversePolishNotation(rpnExpression);
 
   const inputChange = (event: ChangeEvent<HTMLInputElement>) => {
-    const input = event.target.value;
+    const input = sanitize(event.target.value);
     setRpnInput(input);
-    const _errors = rpnValidations(input);
+
+    const _rpnExpression = parseRPNExpression(input.trim());
+
+    const _errors = rpnValidations(_rpnExpression);
     setErrors(_errors);
 
     if (_errors.length === 0) {
-      const _rpnExpression = parseRPNExpression(input);
       setRpnExpression(_rpnExpression);
     } else {
       setRpnExpression([]);
@@ -33,10 +39,12 @@ function App() {
   return (
     <div className="App">
       <h1>Reverse Polish Notation</h1>
-      {errors.map((error) => (
-        <p className="error">{error.message}</p>
+      <input value={rpnInput} onChange={inputChange} autoFocus={true} />
+      {errors.map((error, i) => (
+        <p key={i} className="error">
+          {error.message}
+        </p>
       ))}
-      <input value={rpnInput} onChange={inputChange} />
       {rpnSteps.map((step, i) => (
         <div key={i}>{step.join(" ")}</div>
       ))}
