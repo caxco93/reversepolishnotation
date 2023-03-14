@@ -42,7 +42,7 @@ const reversePolishNotation = (input: RPNExpression): RPNSteps => {
 export const parseRPNExpression = (input: string): RPNExpression => {
   return input.split(" ").map((element) => {
     const number = parseFloat(element);
-    if (isNaN(number)) {
+    if (Number.isNaN(number)) {
       return element as Operator;
     } else {
       return number;

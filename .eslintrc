@@ -10,6 +10,7 @@
     "no-underscore-dangle": ["off"],
     "@typescript-eslint/naming-convention": ["off"],
     "arrow-body-style": ["off"],
-    "no-else-return": ["off"]
+    "no-else-return": ["off"],
+    "import/prefer-default-export": ["off"]
   }
 }
