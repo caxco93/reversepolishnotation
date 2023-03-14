@@ -7,18 +7,16 @@ import reversePolishNotation, {
   parseRPNExpression,
 } from "@/lib/reversePolishNotation";
 import { rpnValidations } from "./lib/rpnValidations";
+import RPNPresentation from "./components/RPNPresentation";
 
 const sanitize = (input: string): string => {
-  return input.replace(/ +/g, " ");
+  return input.replace(/ +/g, " ").replace(/[^0-9\-+/* ^]/g, "");
 };
 
 function App() {
   const [rpnInput, setRpnInput] = useState("");
   const [rpnExpression, setRpnExpression] = useState<RPNExpression>([]);
   const [errors, setErrors] = useState<Array<Error>>([]);
-
-  let rpnSteps: RPNSteps = [];
-  rpnSteps = reversePolishNotation(rpnExpression);
 
   const inputChange = (event: ChangeEvent<HTMLInputElement>) => {
     const input = sanitize(event.target.value);
@@ -45,9 +43,7 @@ function App() {
           {error.message}
         </p>
       ))}
-      {rpnSteps.map((step, i) => (
-        <div key={i}>{step.join(" ")}</div>
-      ))}
+      <RPNPresentation rpnExpression={rpnExpression}></RPNPresentation>
     </div>
   );
 }

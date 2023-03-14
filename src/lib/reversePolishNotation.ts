@@ -2,7 +2,7 @@ export type Operator = "+" | "-" | "*" | "/" | "^";
 type Operation = (a: number, b: number) => number;
 export type RPNElement = number | Operator;
 export type RPNExpression = Array<RPNElement>;
-export type RPNSteps = Array<Array<number>>;
+export type RPNSteps = Array<Array<RPNElement>>;
 
 export const isOperator = (element: RPNElement): element is Operator => {
   return (element as Operator).length !== undefined;
@@ -21,6 +21,7 @@ const reversePolishNotation = (input: RPNExpression): RPNSteps => {
   const stack: number[] = [];
   input.forEach((element, i) => {
     if (isOperator(element)) {
+      result.push([...stack, element]);
       const b = stack.pop();
       const a = stack.pop();
       if (a === undefined || b === undefined) {
