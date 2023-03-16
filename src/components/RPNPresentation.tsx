@@ -1,4 +1,4 @@
-import React, { CSSProperties } from "react";
+import React, { CSSProperties, useState } from "react";
 import reversePolishNotation, {
   RPNElement,
   RPNExpression,
@@ -28,17 +28,38 @@ function RPNPresentation({ rpnExpression }: Props) {
     height: `${longest.length * 64}px`,
   };
 
+  const [currentStep, setCurrentStep] = useState(0);
+  const step = rpnSteps.length === 0 ? [] : rpnSteps[currentStep];
+
   return (
     <div className="RPNPresentation">
       <div className="container" style={containerStyle}>
         <div className="boxes">
-          {longest.map((element, index) => (
+          {step.map((element, index) => (
             // eslint-disable-next-line react/no-array-index-key
             <div key={index} className="box">
               {element}
             </div>
           ))}
         </div>
+      </div>
+      <div className="buttons">
+        <button
+          type="button"
+          onClick={() => {
+            setCurrentStep((x) => Math.max(0, x - 1));
+          }}
+        >
+          ←
+        </button>
+        <button
+          type="button"
+          onClick={() => {
+            setCurrentStep((x) => Math.min(x + 1, rpnSteps.length - 1));
+          }}
+        >
+          →
+        </button>
       </div>
     </div>
   );
