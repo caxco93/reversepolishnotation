@@ -1,2 +1,25 @@
 .RPNPresentation {
+  .container {
+    display: flex;
+    align-content: end;
+    margin: 16px 0;
+    .boxes {
+      display: flex;
+      width: 100%;
+      flex-direction: column-reverse;
+      .box {
+        align-self: center;
+        border: 1px solid black;
+        box-sizing: border-box;
+        height: 64px;
+        width: 64px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+      .box:not(:last-child) {
+        border-top: 0;
+      }
+    }
+  }
 }
