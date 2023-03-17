@@ -44,7 +44,11 @@ function RPNPresentation({ rpnExpression }: Props) {
           ))}
         </div>
       </div>
-      <Controls setStep={setCurrentStep} stepsLength={rpnSteps.length} />
+      <Controls
+        step={currentStep}
+        setStep={setCurrentStep}
+        stepsLength={rpnSteps.length}
+      />
     </div>
   );
 }
