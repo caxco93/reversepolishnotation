@@ -1,6 +1,10 @@
 # Reverse Polish Notation
 This is a tool that helps visualizing how the Reverse Polish Notation (also known as the postfix notation) can use a stack to achieve a solution.
-![ReversePolishNotationGif](https://user-images.githubusercontent.com/3190666/225739353-121b3e6a-894f-4b37-8c06-53064de518c2.gif)
+
+A running version can be found here: [https://www.reversepolishnotation.online/](https://www.reversepolishnotation.online/)
+
+![Reverse Polish Notation GIF](https://user-images.githubusercontent.com/3190666/225993474-086df097-575d-4c78-bc01-69597e5b004b.gif)
+
 
 ## Installation steps
 You should be able to run this project locally by simply running
