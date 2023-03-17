@@ -1,0 +1,8 @@
+.buttons {
+  display: grid;
+  gap: 8px;
+  grid-template-columns: repeat(5, 1fr);
+  span {
+    place-self: center;
+  }
+}

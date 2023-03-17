@@ -1,4 +1,5 @@
 import React, { Dispatch, SetStateAction } from "react";
+import "./Controls.scss";
 
 type Props = {
   step: number;
