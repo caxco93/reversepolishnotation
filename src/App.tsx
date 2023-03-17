@@ -38,7 +38,10 @@ function App() {
           {error.message}
         </p>
       ))}
-      <RPNPresentation rpnExpression={rpnExpression} />
+      <RPNPresentation
+        key={rpnExpression.toString()}
+        rpnExpression={rpnExpression}
+      />
     </div>
   );
 }
