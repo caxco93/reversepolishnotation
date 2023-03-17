@@ -5,6 +5,7 @@ import reversePolishNotation, {
   RPNSteps,
 } from "@/lib/reversePolishNotation";
 import "./RPNPresentation.scss";
+import Controls from "./Controls";
 
 type Props = {
   rpnExpression: RPNExpression;
@@ -43,24 +44,7 @@ function RPNPresentation({ rpnExpression }: Props) {
           ))}
         </div>
       </div>
-      <div className="buttons">
-        <button
-          type="button"
-          onClick={() => {
-            setCurrentStep((x) => Math.max(0, x - 1));
-          }}
-        >
-          ←
-        </button>
-        <button
-          type="button"
-          onClick={() => {
-            setCurrentStep((x) => Math.min(x + 1, rpnSteps.length - 1));
-          }}
-        >
-          →
-        </button>
-      </div>
+      <Controls setStep={setCurrentStep} stepsLength={rpnSteps.length} />
     </div>
   );
 }
