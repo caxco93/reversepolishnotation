@@ -14,7 +14,7 @@ const validationFunctions: Array<validationError> = [
       const numbers = input.filter((x) => !isOperator(x));
       return numbers.length === operators.length + 1;
     },
-    Error("There should be 1 operator more than numbers"),
+    Error("There should be 1 number more than operators"),
   ],
 ];
 
