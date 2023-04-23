@@ -1,14 +1,10 @@
 import React, { CSSProperties, useState } from "react";
-import reversePolishNotation, {
-  RPNElement,
-  RPNExpression,
-  RPNSteps,
-} from "@/lib/reversePolishNotation";
+import { RPNElement, RPNSteps } from "@/lib/reversePolishNotation";
 import "./RPNPresentation.scss";
 import Controls from "./Controls";
 
 type Props = {
-  rpnExpression: RPNExpression;
+  rpnSteps: RPNSteps;
 };
 
 function findLongestStep(steps: RPNSteps): Array<RPNElement> {
@@ -21,8 +17,7 @@ function findLongestStep(steps: RPNSteps): Array<RPNElement> {
   }, steps[0]);
 }
 
-function RPNPresentation({ rpnExpression }: Props) {
-  const rpnSteps: RPNSteps = reversePolishNotation(rpnExpression);
+function RPNPresentation({ rpnSteps }: Props) {
   const longest = rpnSteps.length === 0 ? [] : findLongestStep(rpnSteps);
 
   const containerStyle: CSSProperties = {
