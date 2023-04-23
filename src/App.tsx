@@ -1,6 +1,9 @@
 import React, { ChangeEvent, useState } from "react";
 import "./App.css";
-import { RPNExpression, parseRPNExpression } from "@/lib/reversePolishNotation";
+import reversePolishNotation, {
+  RPNSteps,
+  parseRPNExpression,
+} from "@/lib/reversePolishNotation";
 import { rpnValidations } from "./lib/rpnValidations";
 import RPNPresentation from "./components/RPNPresentation";
 
@@ -9,22 +12,37 @@ const sanitize = (input: string): string =>
 
 function App() {
   const [rpnInput, setRpnInput] = useState("");
-  const [rpnExpression, setRpnExpression] = useState<RPNExpression>([]);
+  const [rpnSteps, setRpnSteps] = useState<RPNSteps>([]);
   const [errors, setErrors] = useState<Array<Error>>([]);
 
   const inputChange = (event: ChangeEvent<HTMLInputElement>) => {
     const input = sanitize(event.target.value);
     setRpnInput(input);
 
-    const _rpnExpression = parseRPNExpression(input.trim());
+    const { result: rpnExpression, errors: parseErrors } = parseRPNExpression(
+      input.trim()
+    );
 
-    const _errors = rpnValidations(_rpnExpression);
-    setErrors(_errors);
+    const validationErrors = rpnValidations(rpnExpression);
 
-    if (_errors.length === 0) {
-      setRpnExpression(_rpnExpression);
-    } else {
-      setRpnExpression([]);
+    const { result: _rpnSteps, errors: evaluationErrors } =
+      reversePolishNotation(rpnExpression);
+
+    setRpnSteps(_rpnSteps);
+
+    if (parseErrors.length > 0) {
+      setErrors(parseErrors);
+      return;
+    }
+
+    if (validationErrors.length > 0) {
+      setErrors(validationErrors);
+      return;
+    }
+
+    if (evaluationErrors.length > 0) {
+      setErrors(evaluationErrors);
+      return;
     }
   };
 
@@ -38,10 +56,7 @@ function App() {
           {error.message}
         </p>
       ))}
-      <RPNPresentation
-        key={rpnExpression.toString()}
-        rpnExpression={rpnExpression}
-      />
+      <RPNPresentation key={rpnInput} rpnSteps={rpnSteps} />
     </div>
   );
 }
