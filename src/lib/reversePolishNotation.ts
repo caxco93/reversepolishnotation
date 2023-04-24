@@ -18,13 +18,13 @@ const operations: Record<Operator, Operation> = {
 };
 
 const reversePolishNotation = (input: RPNExpression): Errorable<RPNSteps> => {
-  const rpnSteps: RPNSteps = [];
+  const result: RPNSteps = [];
   const stack: number[] = [];
   const errors: Array<Error> = [];
   for (let i = 0; i < input.length; i++) {
     const element = input[i];
     if (isOperator(element)) {
-      rpnSteps.push([...stack, element]);
+      result.push([...stack, element]);
       const b = stack.pop();
       const a = stack.pop();
       if (a === undefined || b === undefined) {
@@ -40,9 +40,9 @@ const reversePolishNotation = (input: RPNExpression): Errorable<RPNSteps> => {
     } else {
       stack.push(element);
     }
-    rpnSteps.push([...stack]);
+    result.push([...stack]);
   }
-  return { result: rpnSteps, errors };
+  return { result, errors };
 };
 
 export const parseRPNExpression = (input: string): Errorable<RPNExpression> => {
