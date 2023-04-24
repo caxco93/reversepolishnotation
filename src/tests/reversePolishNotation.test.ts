@@ -8,13 +8,13 @@ import reversePolishNotation, {
 describe("Reverse Polish Notation", () => {
   it("handles simple expressions", () => {
     const input: RPNExpression = [2, 2, "+"];
-    const output = reversePolishNotation(input);
+    const { result: output } = reversePolishNotation(input);
     const expected = [[2], [2, 2], [2, 2, "+"], [4]];
     expect(output).toEqual(expected);
   });
   it("handles complex expressions", () => {
     const input: RPNExpression = [2, 5, "*", 6, "+", 3, 2, "^", 1, "-", "/"];
-    const output = reversePolishNotation(input);
+    const { result: output } = reversePolishNotation(input);
     const expected = [
       [2],
       [2, 5],
@@ -37,8 +37,10 @@ describe("Reverse Polish Notation", () => {
   });
   it("throws when short on operands", () => {
     const input: RPNExpression = [2, 2, "+", "*"];
-    expect(() => {
-      reversePolishNotation(input);
-    }).toThrowError(`Insufficient operands for the "*" operator at index 3`);
+    const { errors } = reversePolishNotation(input);
+    const error = errors[0];
+    expect(error.message).to.equal(
+      `Insufficient operands for the "*" operator at index 3`
+    );
   });
 });
