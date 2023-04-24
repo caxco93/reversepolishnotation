@@ -10,6 +10,14 @@ import RPNPresentation from "./components/RPNPresentation";
 const sanitize = (input: string): string =>
   input.replace(/ +/g, " ").replace(/[^0-9\-+/* ^]/g, "");
 
+// We only need to show 1 set of errors.
+// We are doing this instead of doing multiple conditioned early returns
+// inside the input change function for each set of errors.
+const handleErrors = (...args: Array<Error[]>) => {
+  const shownErrors = args.find((errors) => errors.length > 0);
+  return shownErrors || [];
+};
+
 function App() {
   const [rpnInput, setRpnInput] = useState("");
   const [rpnSteps, setRpnSteps] = useState<RPNSteps>([]);
@@ -30,20 +38,13 @@ function App() {
 
     setRpnSteps(_rpnSteps);
 
-    if (parseErrors.length > 0) {
-      setErrors(parseErrors);
-      return;
-    }
+    const shownErrors = handleErrors(
+      parseErrors,
+      validationErrors,
+      evaluationErrors
+    );
 
-    if (validationErrors.length > 0) {
-      setErrors(validationErrors);
-      return;
-    }
-
-    if (evaluationErrors.length > 0) {
-      setErrors(evaluationErrors);
-      return;
-    }
+    setErrors(shownErrors);
   };
 
   return (
