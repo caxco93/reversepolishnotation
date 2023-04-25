@@ -6,9 +6,7 @@ import reversePolishNotation, {
 } from "@/lib/reversePolishNotation";
 import { rpnValidations } from "./lib/rpnValidations";
 import RPNPresentation from "./components/RPNPresentation";
-
-const sanitize = (input: string): string =>
-  input.replace(/ +/g, " ").replace(/[^0-9\-+/* ^]/g, "");
+import sanitize from "./lib/sanitization";
 
 // We only need to show 1 set of errors.
 // We are doing this instead of doing multiple conditioned early returns
