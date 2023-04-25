@@ -1,6 +1,7 @@
 import { RPNExpression, isOperator } from "./reversePolishNotation";
 
 type validationError = [(input: RPNExpression) => boolean, Error];
+
 const validationFunctions: Array<validationError> = [
   [
     (input) => {
@@ -22,7 +23,7 @@ function isDefined<T>(argument: T | undefined): argument is T {
   return argument !== undefined;
 }
 
-export function rpnValidations(input: RPNExpression): Error[] {
+export default function validate(input: RPNExpression): Error[] {
   return validationFunctions
     .map(([fn, error]) => {
       return fn(input) ? undefined : error;

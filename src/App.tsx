@@ -1,12 +1,12 @@
 import React, { ChangeEvent, useState } from "react";
 import "./App.css";
+import sanitize from "./lib/sanitization";
+import validate from "./lib/validation";
 import reversePolishNotation, {
   RPNSteps,
-  parseRPNExpression,
+  parse,
 } from "@/lib/reversePolishNotation";
-import { rpnValidations } from "./lib/rpnValidations";
 import RPNPresentation from "./components/RPNPresentation";
-import sanitize from "./lib/sanitization";
 
 // We only need to show 1 set of errors.
 // We are doing this instead of doing multiple conditioned early returns
@@ -25,11 +25,11 @@ function App() {
     const input = sanitize(event.target.value);
     setRpnInput(input);
 
-    const { result: rpnExpression, errors: parseErrors } = parseRPNExpression(
+    const { result: rpnExpression, errors: parsingErrors } = parse(
       input.trim()
     );
 
-    const validationErrors = rpnValidations(rpnExpression);
+    const validationErrors = validate(rpnExpression);
 
     const { result: _rpnSteps, errors: evaluationErrors } =
       reversePolishNotation(rpnExpression);
@@ -37,7 +37,7 @@ function App() {
     setRpnSteps(_rpnSteps);
 
     const shownErrors = handleErrors(
-      parseErrors,
+      parsingErrors,
       validationErrors,
       evaluationErrors
     );

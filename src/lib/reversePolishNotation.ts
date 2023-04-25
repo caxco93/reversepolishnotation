@@ -45,7 +45,7 @@ const reversePolishNotation = (input: RPNExpression): Errorable<RPNSteps> => {
   return { result, errors };
 };
 
-export const parseRPNExpression = (input: string): Errorable<RPNExpression> => {
+export const parse = (input: string): Errorable<RPNExpression> => {
   const result: RPNExpression = [];
   const errors: Array<Error> = [];
   const elements = input.split(" ");
